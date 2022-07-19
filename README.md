@@ -1,24 +1,30 @@
-# README
+# Amazing List
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is simply the funniest way to create and share tasks lists
 
-Things you may want to cover:
+> Rails version 7.0.3.1
+> Ruby version 3.1.1
 
-* Ruby version
+## Setup instructions
+Amazing List uses Postgres to store data. To run the application locally, the following environment variables for the database credentials are needed:
+```
+export DB_USERNAME=<your database username>
+export DB_PASSWORD=<your database password>
+```
 
-* System dependencies
+Then you must install the dependencies:
+```
+bundle install
+rails db:create
+rails db:migrate
+```
 
-* Configuration
+### Running tests
+```
+rails test
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Running locally
+```
+bin/dev
+```
