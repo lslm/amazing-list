@@ -1,6 +1,4 @@
 class BoardsController < ApplicationController
-  before_action :set_board, only: %i[ show edit update destroy ]
-
   def index
     @boards = Board.all
   end
@@ -46,8 +44,8 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    @board = Board.find(params[:id])
-    @board.destroy
+    board = Board.find(params[:id])
+    board.destroy
 
     respond_to do |format|
       format.html { redirect_to boards_url, notice: "Board was successfully destroyed." }

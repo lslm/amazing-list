@@ -1,9 +1,9 @@
 <h1>New item</h1>
 
-<%= render "form", item: @item %>
+<%= render "form", item: @item, board: @item.board %>
 
 <br>
 
 <div>
-  <%= link_to "Back to items", items_path %>
+  <%= link_to "Back to items", board_items_path %>
 </div>
