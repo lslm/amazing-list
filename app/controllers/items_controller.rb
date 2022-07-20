@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = Item.where(board_id: params[:board_id])
   end
 
   def show
@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
+    @item = Item.new(board_id: params[:board_id])
   end
 
   def edit
@@ -17,10 +17,11 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.board_id = params[:board_id]
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
+        format.html { redirect_to board_items_url(@item.board), notice: "Item was successfully created." }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +35,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
+        format.html { redirect_to board_items_url(@item.board), notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,7 +48,7 @@ class ItemsController < ApplicationController
     Item.find(params[:id]).destroy
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
+      format.html { redirect_to board_items_url(params[:board_id]), notice: "Item was successfully destroyed." }
       format.json { head :no_content }
     end
   end
