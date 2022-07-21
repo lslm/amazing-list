@@ -1,11 +1,13 @@
 require "test_helper"
 
 class ItemsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    @user = User.new(id: 1, email: 'email@gmail.com')
+    sign_in @user
     @board = boards(:one)
     @item = items(:one)
-
-    @item.board_id = @board.id
   end
 
   test "should get index" do
@@ -27,38 +29,45 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show item" do
-    post board_items_url(@board), params: { item: { description: @item.description, done: @item.done } }
-    item = Item.last
+    board = Board.new(description: 'string')
+    board.save!
+    item = Item.new(description: 'string', board: board)
+    item.save!
 
-    get board_item_url(item.board, item)
+    get board_item_url(board, item)
     assert_response :success
   end
 
   test "should get edit" do
-    post board_items_url(@board), params: { item: { description: @item.description, done: @item.done } }
+    board = Board.new(description: 'string')
+    board.save!
+    item = Item.new(description: 'string', board: board)
+    item.save!
 
-    get edit_board_item_path(@board, Item.last)
+    get edit_board_item_path(board, item)
     assert_response :success
   end
 
   test "should update item" do
-    post board_items_url(@board), params: { item: { description: @item.description, done: @item.done } }
+    board = Board.new(description: 'string')
+    board.save!
+    item = Item.new(description: 'string', board: board)
+    item.save!
 
-    item = Item.last
-
-    patch board_item_url(@board, item), params: { item: { description: @item.description, done: @item.done } }
+    patch board_item_url(board, item), params: { item: { description: @item.description, done: @item.done } }
     assert_redirected_to board_items_url(item.board)
   end
 
   test "should destroy item" do
-    post board_items_url(@board), params: { item: { description: @item.description, done: @item.done } }
-
-    item = Item.last
+    board = Board.new(description: 'string')
+    board.save!
+    item = Item.new(description: 'string', board: board)
+    item.save!
 
     assert_difference("Item.count", -1) do
-      delete board_item_url(@board, item)
+      delete board_item_url(board, item)
     end
 
-    assert_redirected_to board_items_url(@board)
+    assert_redirected_to board_items_url(board)
   end
 end

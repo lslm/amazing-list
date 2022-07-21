@@ -1,7 +1,11 @@
 require "test_helper"
 
 class BoardsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    @user = User.new(id: 1, email: 'email@gmail.com')
+    sign_in @user
     @board = boards(:one)
   end
 
