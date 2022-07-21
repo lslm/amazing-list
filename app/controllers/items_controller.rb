@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @items = Item.where(board_id: params[:board_id])
   end
