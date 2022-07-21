@@ -27,7 +27,10 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show item" do
-    get board_item_url(@board, @item)
+    post board_items_url(@board), params: { item: { description: @item.description, done: @item.done } }
+    item = Item.last
+
+    get board_item_url(item.board, item)
     assert_response :success
   end
 
