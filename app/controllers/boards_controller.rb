@@ -22,7 +22,7 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board.save
-        format.html { redirect_to board_url(@board), notice: "Board was successfully created." }
+        format.html { redirect_to board_url(@board), notice: 'Lista criada' }
         format.json { render :show, status: :created, location: @board }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +36,7 @@ class BoardsController < ApplicationController
       @board = Board.find(params[:id])
 
       if @board.update(board_params)
-        format.html { redirect_to board_url(@board), notice: "Board was successfully updated." }
+        format.html { redirect_to board_url(@board), notice: 'Lista atualizada' }
         format.json { render :show, status: :ok, location: @board }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ class BoardsController < ApplicationController
     board.destroy
 
     respond_to do |format|
-      format.html { redirect_to boards_url, notice: "Board was successfully destroyed." }
+      format.html { redirect_to boards_url, notice: 'Lista apagada' }
       format.json { head :no_content }
     end
   end
