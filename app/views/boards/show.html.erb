@@ -1,7 +1,7 @@
-<div class="bg-white shadow">
+<div class="bg-white shadow dark:bg-slate-900">
   <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center">
-      <h1 class="text-3xl font-bold text-gray-900"><%= @board.description %></h1>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-slate-100"><%= @board.description %></h1>
       <div class="flex">
         <%= link_to 'Editar lista', edit_board_path(@board), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
         <%= link_to 'Apagar board', board_path(@board), method: :delete, class: "ml-1 rounded-lg py-3 px-5 bg-red-600 text-white block font-medium" %>
@@ -10,20 +10,23 @@
   </div>
 </div>
 
-<div class="mt-6 mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto w-1/2">
+<div class="mt-6 mx-auto w-1/3">
+  <div class="w-full mb-2">
+    <%= link_to "Criar novo item", new_board_item_path(@board), class: "rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white block font-medium" %>
+  </div>
+  <div class="flex">
     <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      <p class="w-full py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <ul class="divide-y divide-slate-200 w-full">
+    <ul class="w-full divide-y hover:overflow-hidden rounded-lg divide-slate-200 bg-white dark:bg-slate-800 dark:divide-slate-700">
       <% @board.items.each do |item| %>
         <li>
           <a href=<%= board_item_path(@board, item) %>>
-            <div class="flex rounded-lg items-center py-4 pl-4 hover:bg-slate-300">
+            <div class="flex items-center py-4 pl-4 hover:bg-slate-300 dark:hover:bg-slate-700">
               <div class="w-10 h-10 bg-sky-500 rounded-full"></div>
               <div class="ml-3">
-                <p class="text-sm font-medium text-slate-900"><%= item.description %></p>
+                <p class="text-sm font-medium text-slate-900 dark:text-slate-100"><%= item.description %></p>
               </div>
             </div>
           </a>
