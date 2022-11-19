@@ -2,23 +2,24 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @boards = Board.all
+    @boards = current_user.boards.all.order(:created_at)
   end
 
   def show
-    @board = Board.find(params[:id])
+    @board = current_user.boards.find(params[:id])
   end
 
   def new
-    @board = Board.new
+    @board = current_user.boards.build
   end
 
   def edit
-    @board = Board.find(params[:id])
+    @board = current_user.boards.find(params[:id])
   end
 
   def create
     @board = Board.new(board_params)
+    @board.user = current_user
 
     respond_to do |format|
       if @board.save
@@ -33,7 +34,7 @@ class BoardsController < ApplicationController
 
   def update
     respond_to do |format|
-      @board = Board.find(params[:id])
+      @board = current_user.boards.find(params[:id])
 
       if @board.update(board_params)
         format.html { redirect_to board_url(@board), notice: 'Lista atualizada' }
@@ -46,9 +47,8 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    board = Board.find(params[:id])
+    board = current_user.boards.find(params[:id])
     board.destroy
-
     respond_to do |format|
       format.html { redirect_to boards_url, notice: 'Lista apagada' }
       format.json { head :no_content }
