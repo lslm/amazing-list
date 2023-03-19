@@ -1,0 +1,21 @@
+version: "2"
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: amazing_list
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: amazing_list
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      AMAZING_LIST_DATABASE_PASSWORD: admin
+      RAILS_ENV: development
+      AMAZING_LIST_HOST: db
+      RAILS_SERVE_STATIC_FILES: true

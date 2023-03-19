@@ -5,22 +5,21 @@ default: &default
 
 development:
   <<: *default
+  host: <%= ENV["AMAZING_LIST_HOST"] %>
   database: amazing_list_development
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: localhost
-  port: 5432
+  username: amazing_list
+  password: <%= ENV["AMAZING_LIST_DATABASE_PASSWORD"] %>
 
 test:
   <<: *default
+  host: <%= ENV["AMAZING_LIST_HOST"] %>
   database: amazing_list_test
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  host: localhost
-  port: 5432
+  username: amazing_list
+  password: <%= ENV["AMAZING_LIST_DATABASE_PASSWORD"] %>
 
 production:
   <<: *default
+  host: <%= ENV["AMAZING_LIST_HOST"] %>
   database: amazing_list_production
   username: amazing_list
   password: <%= ENV["AMAZING_LIST_DATABASE_PASSWORD"] %>
